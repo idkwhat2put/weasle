@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Page Title</title>
+</head>
+
+<body>
+
+  <canvas id="myCanvas" width="600" height="140" style="border:1px solid #d3d3d3;">
+    Your browser does not support the HTML canvas tag.</canvas>
+
+  <div>
+    <input type="text" id="mySearch" onkeypress="onKeyPress(event)" oninput="onInput(event)">
+  </div>
+
+  <script>
+    const c = document.getElementById("myCanvas");
+    const ctx = c.getContext("2d");
+    ctx.font = '16px serif';
+
+    const answers = [133, 78, 119, 80, 124, 44, 67, 5, 75, 106, 42, 22, 4, 157, 143, 121, 47, 18, 90, 46, 101, 57, 144, 102, 95, 129, 150, 36, 17, 58, 30, 76, 62, 155, 51, 138, 118, 6, 50, 43, 114, 141, 65, 92, 52, 21, 20, 160, 1, 134, 163, 137, 111, 81, 107, 60, 68, 84, 56, 34, 33, 10, 115, 26, 125, 89, 132, 39, 151, 91, 74, 136, 158, 49, 15, 98, 154, 27, 25, 63, 71, 128, 130, 148, 37, 147, 8, 110, 55, 70, 142, 93, 87, 103, 72, 19, 0, 88, 86, 97, 146, 64, 45, 149, 85, 164, 156, 2, 3, 7, 159, 35, 126, 117, 28, 139, 41, 54, 40, 59, 109, 9, 79, 135, 140, 14, 122, 123, 116, 61, 77, 120, 12, 105, 29, 162, 94, 99, 127, 112, 113, 152, 82, 38, 13, 23, 153, 73, 96, 24, 53, 145, 31, 48, 131, 32, 69, 66, 83, 100, 161, 16, 11, 104, 108];
+    const songs = [
+      ["You Fucked Up", " God Ween Satan - The Oneness", " 1:38", " Gener"],
+      ["Tick", " God Ween Satan - The Oneness", " 1:53", " Gener"],
+      ["I'm In The Mood To Move", " God Ween Satan - The Oneness", " 1:17", " Gener"],
+      ["I Got A Weasel", " God Ween Satan - The Oneness", " 1:22", " Gener"],
+      ["Fat Lenny", " God Ween Satan - The Oneness", " 2:07", " Gener"],
+      ["Cold And Wet", " God Ween Satan - The Oneness", " 1:12", " Gener"],
+      ["Bumblebee", " God Ween Satan - The Oneness", " 1:19", " Gener"],
+      ["Don't Laugh (I Love You)", " God Ween Satan - The Oneness", " 2:49", " Gener"],
+      ["Never Squeal", " God Ween Satan - The Oneness", " 2:26", " Gener"],
+      ["Up On The Hill", " God Ween Satan - The Oneness", " 1:56", " Gener"],
+      ["Wayne's Pet Youngin'", " God Ween Satan - The Oneness", " 1:41", " Gener"],
+      ["Nicole", " God Ween Satan - The Oneness", " 9:21", " Gener"],
+      ["Common Bitch", " God Ween Satan - The Oneness", " 1:46", " Gener"],
+      ["El Camino", " God Ween Satan - The Oneness", " 2:18", " Gener"],
+      ["Old Queen Cole", " God Ween Satan - The Oneness", " 1:34", " Gener"],
+      ["Nan", " God Ween Satan - The Oneness", " 2:56", " Gener"],
+      ["Licking The Palm For Guava", " God Ween Satan - The Oneness", " 1:07", " Gener"],
+      ["Mushroom Festival In Hell", " God Ween Satan - The Oneness", " 2:35", " Gener"],
+      ["L.M.L.Y.P.", " God Ween Satan - The Oneness", " 8:49", " Gener"],
+      ["Papa Zit", " God Ween Satan - The Oneness", " 1:16", " Gener"],
+      ["Old Man Thunder", " God Ween Satan - The Oneness", " 0:23", " Gener"],
+      ["Birthday Boy", " God Ween Satan - The Oneness", " 3:31", " Gener"],
+      ["Blackjack", " God Ween Satan - The Oneness", " 4:36", " Gener"],
+      ["Squelch The Weasel", " God Ween Satan - The Oneness", " 3:11", " Gener"],
+      ["Marble Tulip Juicy Tree", " God Ween Satan - The Oneness", " 5:25", " Gener"],
+      ["Puffy Cloud", " God Ween Satan - The Oneness", " 2:41", " Gener"],
+      ["Strapon That Jammy Pac", " The Pod", " 3:02", " Gener"],
+      ["Dr. Rock", " The Pod", " 3:10", " Gener"],
+      ["Frank", " The Pod", " 3:46", " Gener"],
+      ["Sorry Charlie", " The Pod", " 3:50", " Gener"],
+      ["The Stallion (Pt. 1)", " The Pod", " 2:51", " Gener"],
+      ["Pollo Asado", " The Pod", " 2:44", " Gener"],
+      ["Right To The Ways And The Rules Of The World", " The Pod", " 5:04", " Gener"],
+      ["Captain Fantasy", " The Pod", " 3:19", " Gener"],
+      ["Demon Sweat", " The Pod", " 4:10", " Gener"],
+      ["Molly", " The Pod", " 4:48", " Gener"],
+      ["Can U Taste The Waste?", " The Pod", " 1:38", " Gener"],
+      ["Don't Sweat It", " The Pod", " 4:01", " Gener"],
+      ["Awesome Sound", " The Pod", " 2:21", " Gener"],
+      ["Laura", " The Pod", " 4:36", " Gener"],
+      ["Boing", " The Pod", " 1:33", " Gener"],
+      ["Mononucleosis", " The Pod", " 3:00", " Gener"],
+      ["Oh My Dear (Falling In Love)", " The Pod", " 1:56", " Gener"],
+      ["Sketches Of Winkle", " The Pod", " 2:43", " Gener"],
+      ["Alone", " The Pod", " 3:11", " Gener"],
+      ["Moving Away", " The Pod", " 3:05", " Gener"],
+      ["She Fucks Me", " The Pod", " 3:58", " Gener"],
+      ["Pork Roll Egg And Cheese", " The Pod", " 3:01", " Gener"],
+      ["The Stallion (Pt. 2)", " The Pod", " 4:34", " Gener"],
+      ["Little Birdy", " Pure Guava", " 3:30", " Gener"],
+      ["Tender Situation", " Pure Guava", " 3:40", " Gener"],
+      ["The Stallion Pt. 3", " Pure Guava", " 3:30", " Gener"],
+      ["Big Jilm", " Pure Guava", " 2:10", " Gener"],
+      ["Push Th' Little Daisies", " Pure Guava", " 2:48", " Gener"],
+      ["The Goin' Gets Tough From The Getgo", " Pure Guava", " 2:08", " Gener"],
+      ["Reggaejunkiejew", " Pure Guava", " 4:51", " Gener"],
+      ["I Play It Off Legit", " Pure Guava", " 3:20", " Gener"],
+      ["Pumpin' 4 The Man", " Pure Guava", " 1:30", " Gener"],
+      ["Sarah", " Pure Guava", " 2:09", " Gener"],
+      ["Springtheme", " Pure Guava", " 3:00", " Gener"],
+      ["Flies On My Dick", " Pure Guava", " 3:26", " Gener"],
+      ["I Saw Gener Cryin' In His Sleep", " Pure Guava", " 1:48", " Gener"],
+      ["Touch My Tooter", " Pure Guava", " 2:23", " Gener"],
+      ["Mourning Glory", " Pure Guava", " 5:14", " Gener"],
+      ["Loving U Thru It All", " Pure Guava", " 2:28", " Gener"],
+      ["Hey Fat Boy (Asshole)", " Pure Guava", " 1:53", " Gener"],
+      ["Don't Get 2 Close (2 My Fantasy)", " Pure Guava", " 3:23", " Gener"],
+      ["Poop Ship Destroyer", " Pure Guava", " 2:16", " Gener"],
+      ["Take Me Away", " Chocolate And Cheese", " 3:05", " Gener"],
+      ["Spinal Meningitis (Got Me Down)", " Chocolate And Cheese", " 2:53", " Gener"],
+      ["Freedom Of '76", " Chocolate And Cheese", " 2:52", " Gener"],
+      ["I Can't Put My Finger On It", " Chocolate And Cheese", " 2:46", " Gener"],
+      ["A Tear For Eddie", " Chocolate And Cheese", " 4:46", " Gener"],
+      ["Roses Are Free", " Chocolate And Cheese", " 4:29", " Gener"],
+      ["Baby Bitch", " Chocolate And Cheese", " 3:01", " Gener"],
+      ["Mister", " Would You Please Help My Pony?", " Chocolate And Cheese", " 2:51", " Gener"],
+      ["Drifter In The Dark", " Chocolate And Cheese", " 2:29", " Gener"],
+      ["Voodoo Lady", " Chocolate And Cheese", " 3:45", " Gener"],
+      ["Joppa Road", " Chocolate And Cheese", " 3:01", " Gener"],
+      ["Candi", " Chocolate And Cheese", " 4:01", " Gener"],
+      ["Buenas Tardes Amigo", " Chocolate And Cheese", " 7:12", " Gener"],
+      ["The HIV Song", " Chocolate And Cheese", " 1:59", " Gener"],
+      ["What Deaner Was Talkin' About", " Chocolate And Cheese", " 3:12", " Gener"],
+      ["Don't Shit Where You Eat", " Chocolate And Cheese", " 2:16", " Gener"],
+      ["I'm Holding You", " 12 Golden Country Greats", " 4:02", " Gener"],
+      ["Japanese Cowboy", " 12 Golden Country Greats", " 3:01", " Gener"],
+      ["Piss Up A Rope", " 12 Golden Country Greats", " 3:33", " Gener"],
+      ["I Don't Wanna Leave You On The Farm", " 12 Golden Country Greats", " 2:44", " Gener"],
+      ["Pretty Girl", " 12 Golden Country Greats", " 2:35", " Gener"],
+      ["Powder Blue", " 12 Golden Country Greats", " 4:16", " Gener"],
+      ["Mister Richard Smoker", " 12 Golden Country Greats", " 2:42", " Gener"],
+      ["Help Me Scrape The Mucus Off My Brain", " 12 Golden Country Greats", " 2:45", " Gener"],
+      ["You Were The Fool", " 12 Golden Country Greats", " 4:26", " Gener"],
+      ["Fluffy", " 12 Golden Country Greats", " 3:31", " Gener"],
+      ["I'm Dancing In The Show Tonight", " The Mollusk", " 1:55", " Gener"],
+      ["The Mollusk", " The Mollusk", " 2:36", " Gener"],
+      ["Polka Dot Tail", " The Mollusk", " 3:19", " Gener"],
+      ["I'll Be Your Jonny On The Spot", " The Mollusk", " 2:00", " Gener"],
+      ["Mutilated Lips", " The Mollusk", " 3:48", " Gener"],
+      ["The Blarney Stone", " The Mollusk", " 3:14", " Gener"],
+      ["It's Gonna Be (Alright)", " The Mollusk", " 3:18", " Gener"],
+      ["The Golden Eel", " The Mollusk", " 4:03", " Gener"],
+      ["Cold Blows The Wind", " The Mollusk", " 4:27", " Gener"],
+      ["Pink Eye (On My Leg)", " The Mollusk", " 3:12", " Gener"],
+      ["Waving My Dick In The Wind", " The Mollusk", " 2:11", " Gener"],
+      ["Buckingham Green", " The Mollusk", " 3:18", " Gener"],
+      ["Ocean Man", " The Mollusk", " 2:07", " Gener"],
+      ["She Wanted To Leave (Reprise)", " The Mollusk", " 4:25", " Gener"],
+      ["Exactly Where I'm At", " White Pepper", " 4:30", " Gener"],
+      ["Flutes Of Chi", " White Pepper", " 3:30", " Gener"],
+      ["Even If You Don't", " White Pepper", " 3:25", " Gener"],
+      ["Bananas And Blow", " White Pepper", " 3:34", " Gener"],
+      ["Stroker Ace", " White Pepper", " 2:08", " Gener"],
+      ["Ice Castles", " White Pepper", " 2:05", " Gener"],
+      ["Back To Basom", " White Pepper", " 3:46", " Gener"],
+      ["The Grobe", " White Pepper", " 3:32", " Gener"],
+      ["Pandy Fackler", " White Pepper", " 3:57", " Gener"],
+      ["Stay Forever", " White Pepper", " 3:32", " Gener"],
+      ["Falling Out", " White Pepper", " 2:28", " Gener"],
+      ["She's Your Baby", " White Pepper", " 3:00", " Gener"],
+      ["It's Gonna Be A Long Night", " Quebec", " 2:48", " Gener"],
+      ["Zoloft", " Quebec", " 3:51", " Gener"],
+      ["Transdermal Celebration", " Quebec", " 3:25", " Gener"],
+      ["Among His Tribe", " Quebec", " 3:37", " Gener"],
+      ["So Many People In The Neighborhood", " Quebec", " 3:28", " Gener"],
+      ["Tried And True", " Quebec", " 4:01", " Gener"],
+      ["Happy Colored Marbles", " Quebec", " 3:12", " Gener"],
+      ["Hey There Fancypants", " Quebec", " 1:59", " Gener"],
+      ["Captain", " Quebec", " 3:58", " Gener"],
+      ["Chocolate Town", " Quebec", " 3:26", " Gener"],
+      ["I Don't Want It", " Quebec", " 3:16", " Gener"],
+      ["The F**ked Jam", " Quebec", " 2:53", " Gener"],
+      ["Alcan Road", " Quebec", " 3:10", " Gener"],
+      ["The Argus", " Quebec", " 4:51", " Gener"],
+      ["If You Could Save Yourself (You'd Save Us All)", " Quebec", " 4:44", " Gener"],
+      ["Tastes Good On Th' Bun", " Shinola Vol.1", " 3:26", " Gener"],
+      ["Boys Club", " Shinola Vol.1", " 3:06", " Gener"],
+      ["I Fell In Love Today", " Shinola Vol.1", " 4:09", " Gener"],
+      ["Big Fat Fuck", " Shinola Vol.1", " 2:55", " Gener"],
+      ["Gabrielle", " Shinola Vol.1", " 3:29", " Gener"],
+      ["Did You See Me?", " Shinola Vol.1", " 5:11", " Gener"],
+      ["How High Can You Fly", " Shinola Vol.1", " 2:39", " Gener"],
+      ["Transitions", " Shinola Vol.1", " 3:45", " Gener"],
+      ["Israel", " Shinola Vol.1", " 3:40", " Gener"],
+      ["The Rift", " Shinola Vol.1", " 5:41", " Gener"],
+      ["Monique The Freak", " Shinola Vol.1", " 5:48", " Gener"],
+      ["Someday", " Shinola Vol.1", " 3:45", " Gener"],
+      ["Fiesta", " La Cucaracha", " 2:13", " Gener"],
+      ["Blue Balloon", " La Cucaracha", " 3:51", " Gener"],
+      ["Friends", " La Cucaracha", " 4:06", " Gener"],
+      ["Object", " La Cucaracha", " 2:36", " Gener"],
+      ["Learnin' To Love", " La Cucaracha", " 2:24", " Gener"],
+      ["My Own Bare Hands", " La Cucaracha", " 2:45", " Gener"],
+      ["The Fruit Man", " La Cucaracha", " 4:00", " Gener"],
+      ["Spirit Walker", " La Cucaracha", " 3:21", " Gener"],
+      ["Shamemaker", " La Cucaracha", " 2:38", " Gener"],
+      ["Sweetheart In The Summer", " La Cucaracha", " 3:15", " Gener"],
+      ["Lullaby", " La Cucaracha", " 3:20", " Gener"],
+      ["Woman And Man", " La Cucaracha", " 10:48", " Gener"],
+      ["Your Party", " La Cucaracha", " 4:08", " Gener"],
+      ["Friends", " The Friends EP", " 4:11", " Gener"],
+      ["I Got To Put The Hammer Down", " The Friends EP", " 2:21", " Gener"],
+      ["King Billy", " The Friends EP", " 5:57", " Gener"],
+      ["Light Me Up", " The Friends EP", " 3:29", " Gener"],
+      ["Slow Down Boy", " The Friends EP", " 3:52", " Gener"],
+    ];
+
+    const answer = songs[69];
+    const headers = [["Song", 336], ["Album", 150], ["Duration", 66], ["Singer", 48]];
+
+    const margin = 4;
+    const height = 20;
+    let nextY = 0;
+    let nextX = 0;
+
+    let done = false;
+    let emojis = "";
+
+    drawHeader();
+
+    function drawHeader() {
+      headers.forEach(h => {
+        nextX = drawHeaderBox(ctx, nextX, nextY, h[1], h[0]);
+      });
+      nextX = 0;
+      nextY += height;
+    }
+
+    function drawGuess(guess) {
+      if (done) return;
+      const maxGuess = 6;
+      guess.forEach((g, i) => {
+        let color = "white";
+        if (answer[i] === g) {
+          color = "green";
+          if (i === 0) {
+            done = true;
+          }
+        }
+        else if (i === 2 && Math.abs(hmsToSecondsOnly(answer[i]) - hmsToSecondsOnly(g)) <= 30) color = "yellow";
+        else if (i === 3 && answer[i] === "Both") color = "yellow";
+        nextX = drawGuessBox(ctx, nextX, nextY, headers[i][1], g, color);
+        emojis += colorToEmoji(color);
+      });
+      nextX = 0;
+      nextY += height;
+      emojis += '\n';
+      if (nextY / height > maxGuess) {
+        done = true;
+      }
+      if (done) {
+        displayEmojis();
+      }
+    }
+
+    function colorToEmoji(color) {
+      if (color === "green") return '\u{1F7E9}';
+      if (color === "yellow") return '\u{1F7E8}';
+      return '\u{1F7EB}';
+    }
+
+    function displayEmojis() {
+      const div = document.createElement("div");
+      document.body.appendChild(div);
+      div.innerText = emojis;
+    }
+
+    function drawHeaderBox(ctx, x, y, width, string) {
+      const text = ctx.measureText(string);
+      ctx.strokeRect(x, y, width, height);
+      ctx.fillText(string, x + (margin / 2), y + Math.abs(text.fontBoundingBoxAscent)), width - 4;
+      return x + width;//Math.abs(text.actualBoundingBoxLeft) + Math.abs(text.actualBoundingBoxRight);
+    }
+
+    function drawGuessBox(ctx, x, y, width, string, color) {
+      const text = ctx.measureText(string);
+      ctx.fillStyle = color;
+      ctx.globalAlpha = 0.7;
+      ctx.fillRect(x, y, width, height);
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = "black";
+      ctx.fillText(string, x + (margin / 2), y + Math.abs(text.fontBoundingBoxAscent), width - 4);
+      ctx.strokeRect(x, y, width, height);
+      return x + width;//Math.abs(text.actualBoundingBoxLeft) + Math.abs(text.actualBoundingBoxRight);
+    }
+
+    function getTextHeight() {
+      const text = ctx.measureText("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");
+      return Math.abs(text.fontBoundingBoxAscent) + margin;
+    }
+
+    function onInput(event) {
+      const id = "suggestions";
+      const old = document.getElementById(id);
+      if (old) document.body.removeChild(old);
+      const userInput = event?.target?.value;
+      if (!userInput || done) return;
+      const list = document.createElement("div");
+      list.setAttribute("id", id);
+      document.body.appendChild(list);
+      songs.map((s, i) => [s[0], i]).sort((s1, s2) => s1[0].toLowerCase().search(userInput.toLowerCase()) - s2[0].toLowerCase().search(userInput.toLowerCase())).forEach(s => {
+        const title = s[0];
+        const index = s[1];
+        if (title.toLowerCase().search(userInput.toLowerCase()) < 0) return;
+        const div = document.createElement("div");
+        const li = document.createElement("a");
+        li.innerText = title;
+        li.href = "#";
+        li.onclick = () => {
+          drawGuess(songs[index]);
+          event.target.value = "";
+          onInput();
+        };
+        div.appendChild(li);
+        list.appendChild(div);
+      });
+    }
+
+    function hmsToSecondsOnly(str) {
+      let p = str.split(':'), s = 0, m = 1;
+      while (p.length > 0) {
+        s += m * parseInt(p.pop(), 10);
+        m *= 60;
+      }
+      return s;
+    }
+
+    function DaysBetween(StartDate, EndDate) {
+      // The number of milliseconds in all UTC days (no DST)
+      const oneDay = 1000 * 60 * 60 * 24;
+      // A day in UTC always lasts 24 hours (unlike in other time formats)
+      const start = Date.UTC(EndDate.getFullYear(), EndDate.getMonth(), EndDate.getDate());
+      const end = Date.UTC(StartDate.getFullYear(), StartDate.getMonth(), StartDate.getDate());
+      // so it's safe to divide by 24 hours
+      return (start - end) / oneDay;
+    }
+  </script>
+
+</body>
+
+</html>
